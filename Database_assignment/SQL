@@ -1,0 +1,90 @@
+/*CREATE TABLE sensor_data (
+    node_name VARCHAR(10),               
+    time_received DATETIME,              
+    temperature DECIMAL(6, 2) CHECK (temperature >= -10 AND temperature <= 100), 
+    humidity DECIMAL(6, 2) CHECK (humidity >= 0 AND humidity <= 100),  
+    PRIMARY KEY (node_name, time_received)
+);
+CREATE TABLE sensor_register (
+    node_name VARCHAR(10),
+    manufacturer VARCHAR(10),
+    longitude DECIMAL(15,10),
+    latitude DECIMAL(15,10),
+    PRIMARY KEY (node_name)
+);
+
+# This makes sensor_data and sensor_register tables relational by foreign key 'node-1'
+ALTER TABLE sensor_data
+ADD FOREIGN KEY (node_name) REFERENCES sensor_register (node_name);
+
+# Inserting data into sensor_register table (* only VARCHAR and DATETIME values need single quotes, not number values)
+INSERT INTO sensor_register(node_name, manufacturer, longitude, latitude) VALUES('node-1', 'maker_1', -122.716670, 38.464230);
+INSERT INTO sensor_register(node_name, manufacturer, longitude, latitude) VALUES('node-2', 'maker_2', -122.716670, 38.464230);
+INSERT INTO sensor_register(node_name, manufacturer, longitude, latitude) VALUES('node-3', 'maker_3', -122.716670, 38.464230);
+INSERT INTO sensor_register(node_name, manufacturer, longitude, latitude) VALUES('node-4', 'maker_4', -122.716670, 38.464230);
+INSERT INTO sensor_register(node_name, manufacturer, longitude, latitude) VALUES('node-5', 'maker_5', -122.716670, 38.464230);
+
+# Inserting data into sensor_data table
+INSERT INTO sensor_data (node_name, time_received, temperature, humidity)
+VALUES
+('node-1','2022-10-01 11:00:00',84,25),
+('node-1','2022-10-01 11:30:00',82,23),
+('node-1','2022-10-02 12:00:00',80,21),
+('node-1','2022-10-02 12:30.00',79,21);
+INSERT INTO sensor_data (node_name, time_received, temperature, humidity)
+VALUES
+('node-2','2022-10-01 11:00:00',84,25),
+('node-2','2022-10-01 11:30:00',82,23),
+('node-2','2022-10-02 12:00:00',80,21),
+('node-2','2022-10-02 12:30:00',80,20);
+INSERT INTO sensor_data (node_name, time_received, temperature, humidity)
+VALUES
+('node-3','2022-10-01 11:00:00',84,24),
+('node-3','2022-10-01 11:30:00',81,23),
+('node-3','2022-10-02 12:00:00',80,22),
+('node-3','2022-10-02 12:30:00',79,20);
+INSERT INTO sensor_data (node_name, time_received, temperature, humidity)
+VALUES
+('node-4','2022-10-01 11:00:00',83,25),
+('node-4','2022-10-01 11:30:00',82,25),
+('node-4','2022-10-02 12:00:00',80,24),
+('node-4','2022-10-02 12:30:00',79,24);
+INSERT INTO sensor_data (node_name, time_received, temperature, humidity)
+VALUES
+('node-5','2022-10-01 11:00:00',83,24),
+('node-5','2022-10-01 11:30:00',82,23),
+('node-5','2022-10-02 12:00:00',81,22),
+('node-5','2022-10-02 12:30:00',80,20);
+*/
+
+/*
+# This portion of the program is just to see if a question on the lab assignment works.
+#CREATE TABLE ints (a INT,b INT UNSIGNED,c INT ZEROFILL);
+#INSERT INTO ints VALUES (-10,-10,-10);
+*/
+
+/*
+# Creating a VEIW of both tables
+CREATE VIEW sensor_combined AS
+SELECT
+    sensor_data.time_received,
+    sensor_data.temperature,
+    sensor_data.humidity,
+    sensor_register.manufacturer,
+    sensor_register.longitude,
+    sensor_register.latitude
+FROM
+    sensor_data
+INNER JOIN
+    sensor_register ON sensor_data.node_name=sensor_register.node_name
+    
+# This displays contents in sensor_combined table.    
+SELECT * FROM sensor_combined; 
+*/
+
+/*
+# Proving that trying to insert a value for a sensor not registered will not work
+INSERT INTO sensor_data (node_name, time_received, temperature, humidity)
+VALUES
+('node-7','2022-10-01 09:00:00',84,91);
+*/
