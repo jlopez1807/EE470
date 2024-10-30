@@ -1,5 +1,6 @@
 #include "RGB_LED.h"
 
+String rgbUrl = "https://ssu.jessielopez.net/PHP_Projects/tp2.txt"; // New URL for RGB values
 // Function to control the RGB
 void controlRgbLed() {
     HTTPClient https;
