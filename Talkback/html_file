@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>  
+<html>  
+<body>  
+<p><strong>Control Your Pi! </strong></p>  
+
+<!-- Form to send command to the talkback channel (POST) -->
+<form action="https://api.thingspeak.com/talkbacks/53601/commands.json"   
+      method="post">   
+    <input type="text" name="api_key" placeholder="1HKXUO4N68F0HLXC" id="key" required>   
+    <label> API Key</label>   
+    <br>  
+    <input type="text" name="command_string" id="command" required>   
+    <label> Command (e.g., ON/OFF)</label>   
+    <br><input type="submit" value="Send Command">   
+</form>  
+
+<p><strong>Check Command Queue</strong></p>  
+<!-- Form to check the command queue (GET) -->
+<form action="https://api.thingspeak.com/talkbacks/53601/commands.json?" method="get">
+    <input type="text" name="api_key" id="key"> 
+    <label>API Key</label><br>
+    <input type="submit" value="Check Queue">
+</form>
+
+<p><strong>Remove Commands from Queue</strong></p>  
+<!-- Form to clear all commands from the queue (DELETE) -->
+<form id="clearQueueForm" method="post">
+    <input type="text" name="api_key" id="API_KEY" placeholder="Enter your API key" required> 
+    <label>API Key</label><br>
+    <input type="text" name="talkback_key" id="TALKBACK_KEY" placeholder="Enter your TalkBack key" required>
+    <label>Talkback Key</label><br>
+    <input type="button" value="Clear Queue" onclick="clearQueue()">
+</form>
+
+<script>
+// Function to send the DELETE request to clear the queue
+function clearQueue() {
+    // Replace with your API Key and TalkBack Key
+    const apiKey = document.getElementById('API_KEY').value;
+    const talkbackKey = document.getElementById('TALKBACK_KEY').value;
+
+    const url = `https://api.thingspeak.com/talkbacks/${talkbackKey}/commands.json?api_key=${apiKey}`;
+
+    // Send the DELETE request
+    fetch(url, {
+        method: 'DELETE',  // DELETE method to clear the queue
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Queue cleared successfully!');
+        } else {
+            alert('Failed to clear the queue.');
+        }
+    })
+    .catch(error => {
+        alert('Error clearing the queue: ' + error.message);
+    });
+}
+</script>
+
+</body>  
+</html>
